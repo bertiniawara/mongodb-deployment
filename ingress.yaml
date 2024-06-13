@@ -1,0 +1,38 @@
+# # apiVersion: networking.k8s.io/v1
+# # kind: Ingress
+# # metadata:
+# #   name: mongodb-ingress
+# #   annotations:
+# #     nginx.ingress.kubernetes.io/rewrite-target: /
+# # spec:
+# #   rules:
+# #   - host: mongodb-app.com
+# #     http:
+# #       paths:
+# #       - pathType: Prefix
+# #         path: "/"
+# #         backend:
+# #           service:
+# #             name: mongo-express-service
+# #             port: 
+# #               number: 8081
+# ---
+# # apiVersion: networking.k8s.io/v1
+# # kind: Ingress
+# # metadata:
+# #   name: mongo-express-ingress
+# #   annotations:
+# #     kubernetes.io/ingress.class: nginx
+# #     nginx.ingress.kubernetes.io/ssl-redirect: "false"
+# #     nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+# # spec:
+# #   rules:
+# #   - http:
+# #       paths:
+# #       - path: /
+# #         pathType: Prefix
+# #         backend:
+# #           service:
+# #             name: mongo-express-service
+# #             port: 
+# #               number: 8081
