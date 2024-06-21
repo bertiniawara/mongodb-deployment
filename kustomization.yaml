@@ -1,0 +1,99 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- mongodb.yaml
+- mongo-secret.yaml
+- mongo-configmap.yaml
+# - mongo-express.yaml
+
+# ---
+# # MongoDB Deployment
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: mongodb
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: mongodb
+#   template:
+#     metadata:
+#       labels:
+#         app: mongodb
+#     spec:
+#       containers:
+#       - name: mongodb
+#         image: mongo:4.4.6
+#         ports:
+#         - containerPort: 27017
+#         volumeMounts:
+#         - name: mongo-data
+#           mountPath: /data/db
+#       volumes:
+#       - name: mongo-data
+#         emptyDir: {}
+
+# ---
+# # MongoDB Service
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: mongodb
+# spec:
+#   selector:
+#     app: mongodb
+#   ports:
+#   - port: 27017
+#     targetPort: 27017
+
+# ---
+# # MongoDB Secret
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   name: mongodb-secret
+# type: Opaque
+# data:
+#   mongodb-root-username: YWRtaW4=
+#   mongodb-root-password: Y2hhbmdlbWU=
+
+# ---
+# # Express.js Deployment
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: express
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: express
+#   template:
+#     metadata:
+#       labels:
+#         app: express
+#     spec:
+#       containers:
+#       - name: express
+#         image: your-express-app-image:v1
+#         ports:
+#         - containerPort: 3000
+#         env:
+#         - name: MONGODB_URI
+#           value: mongodb://mongodb:27017/your-database
+
+# ---
+# # Express.js Service
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: express
+# spec:
+#   type: LoadBalancer
+#   selector:
+#     app: express
+#   ports:
+#   - port: 80
+#     targetPort: 3000
